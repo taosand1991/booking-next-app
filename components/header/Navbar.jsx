@@ -27,9 +27,8 @@ function Navbar() {
         handleChange={handleCurrency}
       />
       <HStack
-        spacing={isMobile ? "60px" : "30px"}
+        spacing={isMobile ? "50px" : "350px"}
         alignItems="center"
-        // justifyContent="center"
         h="60px"
         w={isMobile ? "100%" : "100%"}
         p="5"
@@ -43,8 +42,8 @@ function Navbar() {
             </a>
           </Link>
         </Box>
-        {!isMobile && <Spacer />}
-        <Spacer />
+        {/* {!isMobile && <Spacer />} */}
+        {/* {isMobile && <Spacer />} */}
         <Box
           onClick={isOpen}
           cursor="pointer"
@@ -62,10 +61,11 @@ function Navbar() {
           <Text mr="3px">{currency.value}</Text>
           <RiArrowDownSFill />
         </Box>
-        <Spacer />
-        <Box display={isMobile ? "block" : "none"}>
-          <CgMenuGridR onClick={openDrawer} size="25px" />
-        </Box>
+        {isMobile && (
+          <Box>
+            <CgMenuGridR onClick={openDrawer} size="25px" />
+          </Box>
+        )}
 
         {!isMobile && <HeaderComponent />}
       </HStack>

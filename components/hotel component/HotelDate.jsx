@@ -41,7 +41,7 @@ function HotelDate() {
       flexBasis="40%"
       w={isMobile ? "400px" : "400px"}
       h={isMobile ? "100%" : "400px"}
-      p="8"
+      p={isMobile ? "4" : "8"}
       borderRadius="md"
       bg="gray.800"
     >
