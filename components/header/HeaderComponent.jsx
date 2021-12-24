@@ -1,7 +1,9 @@
 import { Box, Text, useMediaQuery } from "@chakra-ui/react";
+import { useContext } from "react";
+import authContext from "./../../authentication/authContext";
 
 function HeaderComponent() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const { isMobile } = useContext(authContext);
   const webView = () => {
     return (
       <Box flex="1" display="flex">

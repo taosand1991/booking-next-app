@@ -34,12 +34,13 @@ function HotelDate() {
     checkInDate,
     submitBooking,
     loading,
+    isMobile,
   } = React.useContext(authContext);
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
     <Box
       flexBasis="40%"
-      w={isMobile ? "400px" : "400px"}
+      w={isMobile ? "1000px" : "400px"}
       h={isMobile ? "100%" : "400px"}
       p={isMobile ? "4" : "8"}
       borderRadius="md"

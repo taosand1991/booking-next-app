@@ -1,12 +1,5 @@
 import { useContext } from "react";
-import {
-  Box,
-  useMediaQuery,
-  Text,
-  Spacer,
-  Flex,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Text, Spacer, Flex, HStack } from "@chakra-ui/react";
 import ModalComponent from "../modal/ModalComponent";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { CgMenuGridR } from "react-icons/cg";
@@ -15,9 +8,16 @@ import authContext from "../../authentication/authContext";
 import HeaderComponent from "./HeaderComponent";
 
 function Navbar() {
-  const { currency, handleCurrency, open, isClose, isOpen, openDrawer } =
-    useContext(authContext);
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const {
+    currency,
+    handleCurrency,
+    open,
+    isClose,
+    isOpen,
+    openDrawer,
+    isMobile,
+  } = useContext(authContext);
+
   return (
     <>
       <ModalComponent
@@ -27,7 +27,7 @@ function Navbar() {
         handleChange={handleCurrency}
       />
       <HStack
-        spacing={isMobile ? "50px" : "350px"}
+        spacing={isMobile ? "70px" : "350px"}
         alignItems="center"
         h="60px"
         w={isMobile ? "100%" : "100%"}
@@ -49,7 +49,6 @@ function Navbar() {
           cursor="pointer"
           alignItems="center"
           display="flex"
-          // flexBasis="25%"
         >
           <Box
             width="30px"

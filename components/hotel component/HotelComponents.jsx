@@ -2,9 +2,11 @@ import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
 import styles from "../css/component.module.css";
 import HotelDate from "./HotelDate";
 import HotelSvg from "./HotelSvg";
+import { useContext } from "react";
+import authContext from "./../../authentication/authContext";
 
 function HotelComponents() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const { isMobile } = useContext(authContext);
   return (
     <Box
       h={isMobile ? "100%" : "100vh"}
@@ -19,9 +21,9 @@ function HotelComponents() {
         justifyContent={isMobile ? "center" : "space-between"}
         alignItems="center"
       >
-        <Box p="15">
-          <HotelDate />
-        </Box>
+        {/* <Box p="15"> */}
+        <HotelDate />
+        {/* </Box> */}
         {!isMobile && <HotelSvg />}
       </Flex>
     </Box>

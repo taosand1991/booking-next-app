@@ -1,7 +1,9 @@
 import { Box, HStack, VStack, Divider, useMediaQuery } from "@chakra-ui/react";
+import { useContext } from "react";
+import authContext from "./../../authentication/authContext";
 
 function SubHeaderComponent() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const { isMobile } = useContext(authContext);
   const webView = () => {
     return (
       <HStack

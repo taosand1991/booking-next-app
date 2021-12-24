@@ -5,6 +5,7 @@ import googleLocation from "./../utils/googleLocation";
 import apiRequest from "../utils/apiRequest";
 import { useRouter } from "next/router";
 import exchangeRequest from "./../utils/exchangeRequest";
+import { useMediaQuery } from "@chakra-ui/react";
 
 function Context({ children }) {
   const router = useRouter();
@@ -31,7 +32,10 @@ function Context({ children }) {
     error: {},
   });
 
+  const [mobileWidth] = useMediaQuery("(max-width: 768px)");
+
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
+  const [isMobile, setMobile] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -39,8 +43,9 @@ function Context({ children }) {
       coordinates["latitude"] = position.coords.latitude;
       coordinates["longitude"] = position.coords.longitude;
       setCoordinates(coordinates);
+      setMobile(mobileWidth);
     });
-  }, []);
+  }, [mobileWidth]);
 
   const openDrawer = () => {
     setState({ ...state, drawer: true });
@@ -264,6 +269,7 @@ function Context({ children }) {
     closeDrawer: closeDrawer,
     limit: state.limit,
     loadMore: handleLoadMore,
+    isMobile,
   };
 
   return (
