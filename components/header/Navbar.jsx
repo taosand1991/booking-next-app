@@ -44,12 +44,13 @@ function Navbar() {
           </Link>
         </Box>
         {!isMobile && <Spacer />}
+        <Spacer />
         <Box
           onClick={isOpen}
           cursor="pointer"
           alignItems="center"
           display="flex"
-          flexBasis="15%"
+          // flexBasis="25%"
         >
           <Box
             width="30px"
@@ -61,6 +62,7 @@ function Navbar() {
           <Text mr="3px">{currency.value}</Text>
           <RiArrowDownSFill />
         </Box>
+        <Spacer />
         <Box display={isMobile ? "block" : "none"}>
           <CgMenuGridR onClick={openDrawer} size="25px" />
         </Box>
