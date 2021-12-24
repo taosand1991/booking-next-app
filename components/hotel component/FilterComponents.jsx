@@ -16,7 +16,7 @@ import authContext from "../../authentication/authContext";
 function FilterComponents({ hostels, hotels, breakFast }) {
   const { handleSort, handleSortChange, handleCheck } = useContext(authContext);
   return (
-    <Box bg="white" borderRadius="md" borderWidth="1px" w="100%" h="100%">
+    <Box bg="white" borderRadius="md" borderWidth="1px" w="100%">
       <Box w="100%" bg="teal.300" p="5">
         <Center color="white">Filter Options</Center>
       </Box>

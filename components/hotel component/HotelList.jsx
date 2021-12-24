@@ -4,7 +4,12 @@ import HotelCard from "./HotelCard";
 
 function HotelList({ results }) {
   return (
-    <Flex flexWrap="wrap" justifyContent="center" flexDirection="row">
+    <Flex
+      flexBasis="50%"
+      flexWrap="wrap"
+      justifyContent="center"
+      flexDirection="row"
+    >
       {results.map((result) => {
         return <HotelCard key={result.id} result={result} />;
       })}

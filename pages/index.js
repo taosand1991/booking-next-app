@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import styles from "../components/css/component.module.css";
 import MotionFrame from "../utils/motionFrame";

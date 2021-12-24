@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import {
   Box,
   Text,
@@ -96,8 +96,8 @@ export default function Hotels(props) {
           <CarouselComponent isMobile={isMobile}>
             {featuredHotels.map((hotel) => {
               return (
-                <>
-                  <Box key={hotel.max_1440_photo_url} position="relative">
+                <Fragment key={hotel.max_1440_photo_url}>
+                  <Box position="relative">
                     <Image
                       src={hotel.max_1440_photo_url}
                       alt="hotel"
@@ -119,7 +119,7 @@ export default function Hotels(props) {
                       <Text>{hotel.hotel_name}</Text>
                     </Box>
                   </Box>
-                </>
+                </Fragment>
               );
             })}
           </CarouselComponent>

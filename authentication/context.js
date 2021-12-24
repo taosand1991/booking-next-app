@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import authContext from "./authContext";
 import { useState, useEffect } from "react";
-import googleLocation from "./../utils/googleLocation";
 import apiRequest from "../utils/apiRequest";
 import { useRouter } from "next/router";
 import exchangeRequest from "./../utils/exchangeRequest";
@@ -62,7 +61,6 @@ function Context({ children }) {
 
   const handleSortingAscending = (e) => {
     const { value } = e.target;
-    console.log(value);
     let data = [...state.data];
     if (value === "") return;
     if (value === "review_score") {
@@ -107,7 +105,6 @@ function Context({ children }) {
   };
 
   const handleGooglePlace = (place) => {
-    console.log(place);
     const latitude = place.geometry.location.lat();
     const city = place.address_components[2].long_name;
     const longitude = place.geometry.location.lng();
@@ -121,22 +118,19 @@ function Context({ children }) {
     const { name, value } = e.target;
     const bookings = { ...state.bookingOption };
     bookings[name] = value;
-    console.log(bookings);
+
     setState({ ...state, bookingOption: bookings });
   };
 
   const handleAdultChange = (value) => {
-    console.log(value);
     setState({ ...state, adult: value });
   };
 
   const handleKidChange = (value) => {
-    console.log(value);
     setState({ ...state, kid: value });
   };
 
   const handleRoomChange = (value) => {
-    console.log(value);
     setState({ ...state, room: value });
   };
 
@@ -144,7 +138,6 @@ function Context({ children }) {
     const { data } = error.response;
     const errors = { ...state.error };
     errors[data["detail"][0].loc[1]] = data["detail"][0].msg;
-    console.log(errors);
     setState({ ...state, error: errors, loading: false });
   };
 
@@ -166,7 +159,7 @@ function Context({ children }) {
         results.data.result[0].currencycode.toUpperCase(),
         state.currency.value
       );
-      console.log(exchange);
+
       setTimeout(() => {
         setState({
           ...state,
@@ -174,6 +167,7 @@ function Context({ children }) {
           data: results.data["result"],
           exchange: exchange.conversion_rate,
           currencyCode: results.data.result[0].currencycode,
+          limit: 5,
         });
         router.push("/hotels");
       }, 2000);
@@ -181,7 +175,6 @@ function Context({ children }) {
       const { data } = error.response;
       const errors = { ...state.error };
       errors[data["detail"][0].loc[1]] = data["detail"][0].msg;
-      console.log(errors);
       setState({ ...state, error: errors, loading: false });
     }
   };

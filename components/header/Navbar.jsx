@@ -16,9 +16,7 @@ function Navbar() {
     isOpen,
     openDrawer,
     isMobile,
-    smallScreen,
   } = useContext(authContext);
-  console.log(isMobile, smallScreen);
   return (
     <>
       <ModalComponent
@@ -48,8 +46,6 @@ function Navbar() {
             </a>
           </Link>
         </Box>
-        {/* {!isMobile && <Spacer />} */}
-        {/* {isMobile && <Spacer />} */}
         <Box
           onClick={isOpen}
           cursor="pointer"

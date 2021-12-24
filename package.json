@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
@@ -22,6 +23,7 @@
     "react-responsive-carousel": "^3.2.22"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",

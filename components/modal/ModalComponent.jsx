@@ -7,7 +7,6 @@ import {
   Box,
   Flex,
   ModalCloseButton,
-  Spacer,
 } from "@chakra-ui/react";
 import { IoMdCheckmark } from "react-icons/io";
 
