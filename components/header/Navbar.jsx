@@ -16,8 +16,9 @@ function Navbar() {
     isOpen,
     openDrawer,
     isMobile,
+    smallScreen,
   } = useContext(authContext);
-
+  console.log(isMobile, smallScreen);
   return (
     <>
       <ModalComponent
@@ -27,7 +28,12 @@ function Navbar() {
         handleChange={handleCurrency}
       />
       <HStack
-        spacing={isMobile ? "70px" : "350px"}
+        spacing={{
+          base: "60px",
+          md: "60px",
+          lg: "200px",
+          xl: "350px",
+        }}
         alignItems="center"
         h="60px"
         w={isMobile ? "100%" : "100%"}

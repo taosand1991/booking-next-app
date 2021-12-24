@@ -32,10 +32,14 @@ function Context({ children }) {
     error: {},
   });
 
-  const [mobileWidth] = useMediaQuery("(max-width: 768px)");
+  const [mobileWidth, smallWidth] = useMediaQuery([
+    "(max-width: 768px)",
+    "(min-width: 300px) and (max-width: 600px)",
+  ]);
 
   const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [isMobile, setMobile] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -44,6 +48,7 @@ function Context({ children }) {
       coordinates["longitude"] = position.coords.longitude;
       setCoordinates(coordinates);
       setMobile(mobileWidth);
+      setSmallScreen(smallWidth);
     });
   }, [mobileWidth]);
 
@@ -270,6 +275,7 @@ function Context({ children }) {
     limit: state.limit,
     loadMore: handleLoadMore,
     isMobile,
+    smallScreen,
   };
 
   return (

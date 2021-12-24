@@ -25,12 +25,3 @@ export default function Home({ slicedData }) {
     </MotionFrame>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   // const slicedData = await fetchData(26);
-//   return {
-//     props: {
-//       // slicedData,
-//     },
-//   };
-// }
