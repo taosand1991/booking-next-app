@@ -1,0 +1,16 @@
+.background_style {
+    background: rgba(0, 0, 0, 0.9) url('/images/hotel.jpg') no-repeat 50% 50%;
+    background-size: cover;
+    height: 100%;
+}
+
+.autocomplete {
+    padding: 5px;
+    color: black;
+    border-radius: 20px;
+    width:100%;
+    border: none;
+    outline:none;
+    background-color: transparent;
+    appearance: none;
+  }
