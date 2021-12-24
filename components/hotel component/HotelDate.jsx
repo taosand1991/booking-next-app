@@ -39,8 +39,8 @@ function HotelDate() {
 
   return (
     <Box
-      flexBasis="40%"
-      w={isMobile ? "1000px" : "400px"}
+      flexBasis={{ base: "55%", md: "40%", lg: "40%" }}
+      w={{ sm: "600px", md: "1200px", lg: "400px" }}
       h={isMobile ? "100%" : "400px"}
       p={isMobile ? "4" : "8"}
       borderRadius="md"

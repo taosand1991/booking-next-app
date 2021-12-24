@@ -29,9 +29,9 @@ function Navbar() {
       />
       <HStack
         spacing={{
-          base: "60px",
-          md: "60px",
-          lg: "200px",
+          sm: "60px",
+          md: "200px",
+          lg: "180px",
           xl: "350px",
         }}
         alignItems="center"
