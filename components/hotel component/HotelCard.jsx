@@ -24,7 +24,13 @@ function HotelCard({ result }) {
 
   return (
     <Box m="3">
-      <Box maxW="lg" borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Box
+        data-testid="hotel-length"
+        maxW="lg"
+        borderWidth="1px"
+        borderRadius="lg"
+        overflow="hidden"
+      >
         <Image
           src={result?.max_1440_photo_url}
           alt={result?.max_1440_photo_url}

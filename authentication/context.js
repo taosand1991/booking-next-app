@@ -15,6 +15,7 @@ function Context({ children }) {
       checkOutDate: "",
     },
     adult: 1,
+    word: "",
     kid: 0,
     room: 1,
     city: "",
@@ -36,19 +37,12 @@ function Context({ children }) {
     "(min-width: 300px) and (max-width: 600px)",
   ]);
 
-  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
   const [isMobile, setMobile] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coordinates = { ...coordinates };
-      coordinates["latitude"] = position.coords.latitude;
-      coordinates["longitude"] = position.coords.longitude;
-      setCoordinates(coordinates);
-      setMobile(mobileWidth);
-      setSmallScreen(smallWidth);
-    });
+    setMobile(mobileWidth);
+    setSmallScreen(smallWidth);
   }, [mobileWidth]);
 
   const openDrawer = () => {
@@ -141,9 +135,31 @@ function Context({ children }) {
     setState({ ...state, error: errors, loading: false });
   };
 
+  const checkForInputFields = () => {
+    let errors = {};
+    const {
+      bookingOption: { checkInDate, checkOutDate },
+      tempCoordinates,
+    } = state;
+    if (
+      checkInDate == "" ||
+      checkOutDate == "" ||
+      Object.keys(tempCoordinates).length < 2
+    ) {
+      errors["checkIn"] = "please enter a valid date";
+      errors["date"] = "please enter a valid date";
+      errors["input"] = "please enter a valid address";
+      setState({ ...state, error: errors });
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (state.error.date || state.error.checkIn) return state.error;
+    const checkError = checkForInputFields();
+    if (checkError) return;
+    if (Object.keys(state.error).length > 0) return;
     setState({ ...state, loading: true });
     const options = {
       checkoutDate: state.bookingOption.checkOutDate,
@@ -233,7 +249,6 @@ function Context({ children }) {
   };
 
   const options = {
-    coordinates: coordinates,
     results: state.data,
     city: state.city,
     handleLocation: handleGooglePlace,

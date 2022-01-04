@@ -37,11 +37,13 @@ function HotelDate() {
     isMobile,
   } = React.useContext(authContext);
 
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
     <Box
       flexBasis={{ base: "55%", md: "40%", lg: "40%" }}
       w={{ sm: "600px", md: "1200px", lg: "400px" }}
-      h={isMobile ? "100%" : "400px"}
+      h={isMobile ? "100%" : "100%"}
       p={isMobile ? "4" : "8"}
       borderRadius="md"
       bg="gray.800"
@@ -66,6 +68,11 @@ function HotelDate() {
         />
         <GoLocation color="black" />
       </Box>
+      {errors.input && (
+        <Text data-testid="input-error" color="red" mt="3px" mb="5px">
+          {errors.input}
+        </Text>
+      )}
       <Box mt="10px">
         <FormControl id="form-control">
           <FormLabel htmlFor="check-in">Check-in date</FormLabel>
@@ -80,15 +87,16 @@ function HotelDate() {
             backgroundColor="white"
             id="check-in"
             type="date"
+            min={today}
             placeholder="DD-MM-YY"
           />
           {errors.checkIn && (
-            <Text color="red" mt="3px" mb="5px">
+            <Text data-testid="checkin-error" color="red" mt="3px" mb="5px">
               {errors.checkIn}
             </Text>
           )}
           {errors.checkin_date && (
-            <Text color="red" mt="3px" mb="5px">
+            <Text data-testid="date-error" color="red" mt="3px" mb="5px">
               {errors.checkin_date}
             </Text>
           )}
@@ -104,15 +112,16 @@ function HotelDate() {
             backgroundColor="white"
             id="check-out"
             type="date"
+            min={today}
             placeholder="DD-MM-YY"
           />
           {errors.date && (
-            <Text color="red" mt="3px" mb="5px">
+            <Text data-testid="checkout-error" color="red" mt="3px" mb="5px">
               {errors.date}
             </Text>
           )}
           {errors.checkout_date && (
-            <Text color="red" mt="3px" mb="5px">
+            <Text data-testid="checkout-error" color="red" mt="3px" mb="5px">
               {errors.checkout_date}
             </Text>
           )}
@@ -178,6 +187,7 @@ function HotelDate() {
             </Box>
           </Box>
           <Button
+            data-testid="search"
             onClick={submitBooking}
             isLoading={loading}
             type="submit"

@@ -21,9 +21,7 @@ function HotelComponents() {
         justifyContent={isMobile ? "center" : "space-between"}
         alignItems="center"
       >
-        {/* <Box p="15"> */}
         <HotelDate />
-        {/* </Box> */}
         {!isMobile && <HotelSvg />}
       </Flex>
     </Box>

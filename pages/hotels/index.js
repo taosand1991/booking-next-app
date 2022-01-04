@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import {
   Box,
   Text,
@@ -13,13 +13,19 @@ import Image from "next/image";
 import HotelList from "../../components/hotel component/HotelList";
 import authContext from "./../../authentication/authContext";
 import MotionFrame from "./../../utils/motionFrame";
+import Head from "../../utils/layout";
+import { useRouter } from "next/router";
 
 export default function Hotels(props) {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const { results, city, hotelOption, limit, loadMore, loading } =
     React.useContext(authContext);
-
   const { hostel, hotel, breakFastInc } = hotelOption;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (results.length <= 0) window.location.href = "/";
+  }, []);
 
   const featuredHotels = results.filter((hotel) => hotel.review_score >= 8);
   const hotels = results.filter(
@@ -45,7 +51,7 @@ export default function Hotels(props) {
     if (isMobile) {
       return (
         <Flex p="5" flexDirection="column">
-          <Box>
+          <Box data-testid="filter-id">
             <FilterComponents
               hotels={hotels}
               hostels={hostels}
@@ -60,14 +66,14 @@ export default function Hotels(props) {
     } else {
       return (
         <Flex p="5">
-          <Box flexBasis="20%">
+          <Box data-testid="filter-id" flexBasis="20%">
             <FilterComponents
               hotels={hotels}
               hostels={hostels}
               breakFast={breakFast}
             />
           </Box>
-          <Box flexBasis="70%">
+          <Box data-testid="hotel-list" flexBasis="70%">
             <HotelList results={paginatedList} />
           </Box>
         </Flex>
@@ -75,75 +81,90 @@ export default function Hotels(props) {
     }
   };
 
+  if (results.length <= 0)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        Loading....
+      </Box>
+    );
+
   return (
-    <MotionFrame>
-      <Box w="100%" display="block">
-        <Box
-          position="relative"
-          mt="60px"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          w={isMobile ? "100%" : "50%"}
-          m="auto"
-          p={isMobile ? "4" : ""}
-          flexDirection="column"
-          h="100%"
-        >
-          <Text mb="5px" fontSize={isMobile ? "sm" : "2xl"}>
-            Featured Hotels in {city}
-          </Text>
-          <CarouselComponent isMobile={isMobile}>
-            {featuredHotels.map((hotel) => {
-              return (
-                <Fragment key={hotel.max_1440_photo_url}>
-                  <Box position="relative">
-                    <Image
-                      src={hotel.max_1440_photo_url}
-                      alt="hotel"
-                      width="800px"
-                      height="500px"
-                    />
-                    <Box
-                      color="white"
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      position="absolute"
-                      top={"40%"}
-                      w={isMobile ? "200px" : "300px"}
-                      h={isMobile ? "50px" : "100px"}
-                      left={isMobile ? "20%" : "30%"}
-                      bg="blackAlpha.700"
-                    >
-                      <Text>{hotel.hotel_name}</Text>
+    <>
+      <Head title="Hotels List" />
+      <MotionFrame>
+        <Box w="100%" display="block">
+          <Box
+            position="relative"
+            mt="60px"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            w={isMobile ? "100%" : "50%"}
+            m="auto"
+            p={isMobile ? "4" : ""}
+            flexDirection="column"
+            h="100%"
+          >
+            <Text mb="5px" fontSize={isMobile ? "sm" : "2xl"}>
+              Featured Hotels in {city}
+            </Text>
+            <CarouselComponent isMobile={isMobile}>
+              {featuredHotels.map((hotel) => {
+                return (
+                  <Fragment key={hotel.max_1440_photo_url}>
+                    <Box position="relative">
+                      <Image
+                        src={hotel.max_1440_photo_url}
+                        alt="hotel"
+                        width="800px"
+                        height="500px"
+                      />
+                      <Box
+                        color="white"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        position="absolute"
+                        top={"40%"}
+                        w={isMobile ? "200px" : "300px"}
+                        h={isMobile ? "50px" : "100px"}
+                        left={isMobile ? "20%" : "30%"}
+                        bg="blackAlpha.700"
+                      >
+                        <Text>{hotel.hotel_name}</Text>
+                      </Box>
                     </Box>
-                  </Box>
-                </Fragment>
-              );
-            })}
-          </CarouselComponent>
-        </Box>
-        <Divider />
-        <Box mt="4px" p="4" textAlign="center">
-          <Box fontWeight="bold" as="h3" fontSize={isMobile ? "sm" : "2xl"}>
-            {city}: {filteredHotels().length} properties found
+                  </Fragment>
+                );
+              })}
+            </CarouselComponent>
+          </Box>
+          <Divider />
+          <Box mt="4px" p="4" textAlign="center">
+            <Box fontWeight="bold" as="h3" fontSize={isMobile ? "sm" : "2xl"}>
+              {city}: {filteredHotels().length} properties found
+            </Box>
+          </Box>
+          {view()}
+          <Box
+            py="4"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              onClick={loadMore}
+              isLoading={loading}
+              color="white"
+              bg="teal.400"
+              borderRadius="md"
+              px={4}
+            >
+              load more
+            </Button>
           </Box>
         </Box>
-        {view()}
-        <Box py="4" display="flex" justifyContent="center" alignItems="center">
-          <Button
-            onClick={loadMore}
-            isLoading={loading}
-            color="white"
-            bg="teal.400"
-            borderRadius="md"
-            px={4}
-          >
-            load more
-          </Button>
-        </Box>
-      </Box>
-    </MotionFrame>
+      </MotionFrame>
+    </>
   );
 }
